@@ -74,6 +74,10 @@ echo "Running workflow..."
 singularity run --nv $IMAGE_PATH/$SINGULARITY_IMAGE \
         --img_dir $DATA_PATH/data/in \
         --msk_dir $DATA_PATH/data/gt \
+        --infolder $DATA_PATH/data/in \
+	--outfolder $DATA_PATH/data/out \
+	--gtfolder $DATA_PATH/data/gt \
+	--local \
         --num_classes 1 \
         --desc None \
         -nmc && echo "Job completed successfully."
