@@ -72,12 +72,12 @@ module load singularity > /dev/null 2>&1 || true
 # The container is already downloaded as a .simg file at $IMAGE_PATH.
 echo "Running workflow..."
 singularity run --nv $IMAGE_PATH/$SINGULARITY_IMAGE \
-        --img_dir $DATA_PATH/data/in \
-        --msk_dir $DATA_PATH/data/gt \
-        --infolder $DATA_PATH/data/in \
+	--infolder $DATA_PATH/data/in \
 	--outfolder $DATA_PATH/data/out \
 	--gtfolder $DATA_PATH/data/gt \
 	--local \
+        --img_dir $DATA_PATH/data/in \
+        --msk_dir $DATA_PATH/data/gt \
         --num_classes 1 \
         --desc None \
         -nmc && echo "Job completed successfully."
