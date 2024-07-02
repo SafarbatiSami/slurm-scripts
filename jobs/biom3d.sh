@@ -71,16 +71,24 @@ module load singularity > /dev/null 2>&1 || true
 # We run a (singularity) container with the provided ENV variables.
 # The container is already downloaded as a .simg file at $IMAGE_PATH.
 echo "Running workflow..."
-singularity run --nv $IMAGE_PATH/$SINGULARITY_IMAGE \
-	--infolder $DATA_PATH/data/in \
-	--outfolder $DATA_PATH/data/out \
-	--gtfolder $DATA_PATH/data/gt \
-	--local \
-        --img_dir $DATA_PATH/data/in \
-        --msk_dir $DATA_PATH/data/gt \
-        --num_classes 1 \
-        --desc None \
-        -nmc && echo "Job completed successfully."
 
-                                                                                                                                         
+# Verify if the number of parameters is correct
+if [ "$#" -lt 2 ]; then
+    echo "Usage: $0 <python_module> <params...>"
+    exit 1
+fi
+
+# Extract the Python module name
+python_module="$1"
+shift  # Remove the first argument to leave only the parameters
+
+# Extract the remaining parameters
+params="$@"
+
+# Define the Singularity image path (replace with your actual Singularity image path)
+singularity_image="/storage/scratch/sasafarb/my-scratch/singularity_images/workflows/biom3d/biom3d_v1.0.0.sif"
+
+# Run Singularity container with provided parameters
+singularity exec --cleanenv $singularity_image "$python_module" $params
+                                                                                                                                        
 
